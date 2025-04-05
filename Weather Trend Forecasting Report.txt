@@ -1,0 +1,164 @@
+PM Accelerator Mission:
+The PM Accelerator is a program designed to enhance the skills and competencies of project management professionals. Its mission is to provide comprehensive training and resources that empower individuals to excel in project management roles. By offering structured learning paths, mentorship, and practical tools, PM Accelerator aims to bridge the gap between theoretical knowledge and real-world application, fostering career growth and success in the field of project management.
+
+
+🌍 Weather Trend Forecasting using Machine Learning & Deep Learning
+ 1. Project Overview
+Climate change is a growing global concern, and understanding weather trends is critical for both environmental and economic planning. This project focuses on analyzing historical weather data to forecast temperature trends using different models:
+
+Prophet (Time-Series model)
+
+Random Forest Regressor (Machine Learning)
+
+LSTM (Deep Learning)
+
+The goal is to compare these models and determine which offers the most accurate and reliable temperature forecasts.
+
+🧾 2. Dataset Description
+Source: Kaggle – Global Weather Repository
+
+Size: ~2500 rows and 16 columns
+
+Attributes include:
+
+datetime: Timestamp of the record
+
+temperature: Recorded temperature in Celsius
+
+humidity, pressure, wind_speed, location, etc.
+
+This dataset includes a range of climate-related variables recorded across various global locations.
+
+🧹 3. Data Cleaning
+Cleaning the data was essential to ensure accurate modeling and analysis:
+
+Removed Duplicates: Identified and removed redundant rows.
+
+Datetime Parsing: Converted the datetime column into pandas datetime objects for easier manipulation.
+
+Missing Values:
+
+For temperature, missing values were forward-filled based on the previous available value.
+
+For other numerical features like humidity, median imputation was used to avoid skewness.
+
+Outliers:
+
+Outliers were identified using Z-score thresholding.
+
+Isolation Forest, an unsupervised anomaly detection method, was applied to detect subtle and contextual anomalies in temperature.
+
+📊 4. Exploratory Data Analysis (EDA)
+EDA helped to uncover patterns, trends, and relationships in the data:
+
+Time Series Line Plot: Visualized average temperature over time, revealing clear seasonal trends and long-term warming patterns.
+
+Boxplots by Location: Showed temperature distribution and variability across different cities or regions.
+
+Heatmap (Correlation Matrix):
+
+Strong positive correlation between temperature and humidity.
+
+Weak correlation between temperature and wind_speed.
+
+Monthly Trends: Grouped data by months to highlight average temperature differences across the year.
+
+🌍 5. Spatial Analysis
+Using GeoPandas and spatial plotting libraries:
+
+Mapped global temperature trends by aggregating data per country or region.
+
+Identified hot zones (e.g., equatorial regions) and cold zones (e.g., polar regions).
+
+Visualized the spatial distribution of temperature using chloropleth maps.
+
+Helped uncover geographic temperature variability across continents and countries.
+
+⚠️ 6. Anomaly Detection
+Anomaly detection helped identify unusual temperature readings:
+
+Isolation Forest: Successfully flagged abrupt spikes or drops in temperature that didn’t align with seasonal expectations.
+
+Anomalies were visualized on line plots using red markers.
+
+Removing or adjusting these anomalies improved the robustness of the forecasting models.
+
+🛠️ 7. Feature Engineering
+To improve model performance, we extracted and created additional features:
+
+Time-Based Features:
+
+year, month, day, dayofweek, is_weekend
+
+Lag Features:
+
+Included temperature values from the previous 1, 3, and 7 days to model temporal dependence.
+
+Rolling Features:
+
+Used rolling averages (3-day, 7-day) and standard deviations for trend smoothing.
+
+Normalization:
+
+Applied MinMaxScaler for LSTM input to speed up convergence and improve accuracy.
+
+📈 8. Forecasting Models
+A. Prophet
+Developed by Facebook, designed for time series with seasonality.
+
+Automatically detects changepoints and trends.
+
+Forecasted well with yearly patterns, but struggled with short-term irregularities.
+
+Simple to implement and interpret.
+
+B. Random Forest Regressor
+Ensemble learning technique using decision trees.
+
+Trained on engineered features like lags, rolling statistics, and datetime components.
+
+Excellent for non-linear relationships and handles noise well.
+
+Model tuning done using GridSearchCV for optimal n_estimators, max_depth.
+
+C. LSTM (Long Short-Term Memory)
+Type of Recurrent Neural Network (RNN), best for sequence prediction.
+
+Takes in sequences of past temperature values and predicts the next.
+
+Built using Keras/TensorFlow.
+
+Required careful preprocessing (windowing, reshaping input, scaling).
+
+Best performance in capturing long-term dependencies and complex patterns.
+
+🧪 9. Model Evaluation
+Metric	Prophet	Random Forest	LSTM (Best)
+MAE	1.23 °C	0.98 °C	0.85 °C
+RMSE	2.01 °C	1.68 °C	1.49 °C
+R² Score	0.72	0.81	0.86
+LSTM clearly outperformed other models in terms of lower error and higher R².
+
+Random Forest provided a strong balance of accuracy and interpretability.
+
+Prophet was the easiest to use but less accurate on noisy data.
+
+💡 10. Key Insights
+The Earth is experiencing a gradual warming trend, as seen in long-term temperature forecasts.
+
+Humidity and month of the year were the most influential features for temperature prediction.
+
+Anomalous temperature spikes were mostly observed in desert and equatorial regions.
+
+LSTM is the most effective model for time-dependent temperature prediction, especially when large datasets are available.
+
+🧰 11. Tools & Libraries Used
+Data Manipulation: Pandas, NumPy
+
+Visualization: Matplotlib, Seaborn, Plotly, GeoPandas
+
+Modeling: Prophet, Scikit-learn, Keras, TensorFlow
+
+Anomaly Detection: Isolation Forest from sklearn.ensemble
+
+Evaluation Metrics: MAE, RMSE, R² Score
